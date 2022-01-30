@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Background Changer</title>
+</head>
+<body>
+<div id="main">
+ <h2>Background Color generator</h2>
+ <div id="valdiv">
+ <span></span>
+ <span></span>
+ <span></span>
+</div >
+<input type="color" id="firstclr" >
+<input type="color" id="secondclr">
+<input type="color" id="thirdclr">
+<br>
+<button id="random">random</button>
+<button id="auto">Auto</button>
+<button id="stop">Stop</button>
+<br>
+
+<hr>
+<button id="calculator"> Calculator</button>
+
+ <div id="caldiv">
+      <h2 id="calHead">Calculator for find root value </h2>
+      <h3> Pixel</h3>
+      <input class="inputnumber" id="pixel" type="number" min="0" placeholder="Enter here"> <br>
+      <h3 id="rem">  Rem</h3>
+      <input class="inputnumber"  id="percentage" type="number" min="0" placeholder="Value in %"    >
+ 
+
+ </div>
+</div>
+<style>
+  html{
+      font-size: 62.5%;
+  }
+#rem{
+    white-space: pre;
+}
+#caldiv{
+    display:none;
+}
+#calculator{
+
+   position: relative;
+   top: 10rem;
+   
+   ;
+
+}
+hr{
+ border-color: black;
+  border-width:0.3rem;
+  background-color: black;
+  position: relative;
+  top:5rem;
+  display: none;
+}
+  #calHead{
+margin-top:12rem;
+
+  }
+.inputnumber{
+border-radius:0%;
+width:10rem;
+height:4rem;
+}
+h3{
+    display: inline-block;
+    font-size: 2rem;
+}
+
+
+  body{
+      padding: 0%;
+      margin: 0%
+  }
+#main{
+    box-sizing: border-box;
+  height: 100vh;
+  text-align: center;
+  padding-top: 10vh;
+  font-family: 'Bebas Neue', cursive;
+background-image: linear-gradient(red ,green,blue);
+ overflow: auto;
+}
+ 
+     h2{
+          font-size:4rem;
+     }
+  
+     @media only  screen and (max-width:494px) {
+         html{
+             font-size:50%;
+         }
+     }
+     @media only  screen and (max-width:370px) {
+         html{
+             font-size:43%;
+         }
+     }
+     @media only  screen and (max-width:281px) {
+         html{
+             font-size:40%;
+         }
+     }
+
+span{
+    padding: 7px;
+    font-size:20px;
+   
+}
+ #valdiv{
+
+    padding-left:25px;
+    padding-bottom: 20px;
+ }
+input{
+    height:50px;
+ border-radius:20% ;
+    margin-left:2vw;
+}
+button{
+    margin-left: 2vw;
+    padding:10px ;
+    border-radius:30rem;
+    cursor:pointer;
+     margin-top: 10px;
+     border-color: aqua;
+     background-color: #11fded;
+     box-shadow:0.2rem .3rem .5rem black;
+}
+
+</style>
+
+<script> 
+
+ 
+let calculator=document.getElementById("calculator");
+let caldiv=document.getElementById("caldiv");
+let hr=document.querySelector("hr");
+calculator.onclick=()=>{
+    caldiv.style.display =" block";
+    hr.style.display =" block";
+    calculator.style.display ="none";
+};
+
+
+    let div=document.querySelector("#main");
+    let valdiv=document.querySelector("#valdiv")
+let clr1=document.querySelector("#firstclr");
+ 
+let clr2=document.querySelector("#secondclr");
+let clr3=document.querySelector("#thirdclr");
+
+let auto=document.querySelector("#auto");
+let random=document.querySelector("#random");
+let stop=document.querySelector("#stop");
+
+let firstVal= valdiv.firstElementChild ;
+firstVal.innerHTML=clr1.value;
+let secondVal= valdiv.firstElementChild.nextElementSibling ;
+ secondVal.innerHTML=clr2.value;
+ let thirdVal=valdiv.firstElementChild.nextElementSibling.nextElementSibling;
+ thirdVal.innerHTML=clr3.value;
+ let pixel=document.getElementById("pixel");
+let percentage=document.getElementById("percentage");
+
+ function setBackground()
+ {
+     div.style.background="linear-gradient("+clr1.value+","+clr2.value+","+clr3.value+ ")";
+     firstVal.innerHTML=clr1.value;
+     secondVal.innerHTML=clr2.value;
+     thirdVal.innerHTML=clr3.value;
+     
+ }
+
+ function random_fun()
+ {
+  random1="#"+  Math.random().toString(16).slice(2,8);
+ 
+  random2="#"+  Math.random().toString(16).slice(2,8);
+ 
+  random3="#"+  Math.random().toString(16).slice(2,8);
+ 
+ clr1.value=random1;
+ clr2.value=random2;
+ clr3.value=random3;
+
+ setBackground();
+};
+var i =0;
+var interval;
+function auto_fun()
+{
+if(i==0){
+  interval= setInterval( random_fun,3000);
+  i=1;
+}
+};
+
+function stop_fun()
+{
+    i=0;
+   clearInterval(interval); 
+};
+
+// Events 
+firstclr.addEventListener("input",setBackground);
+secondclr.addEventListener("input",setBackground);
+thirdclr.addEventListener("input",setBackground);
+ random.addEventListener("click",random_fun);
+ auto.addEventListener("click",auto_fun);
+stop.addEventListener("click",stop_fun);
+pixel.oninput=()=>{
+    percentage.value=pixel.value*(100/16);
+}
+percentage.oninput=()=>{
+ pixel.value=(percentage.value*(16/100));
+}
+
+</script>
+</body>
+</html>
